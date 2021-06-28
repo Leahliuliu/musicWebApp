@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../css/music.css">
+    <style>
+        #main_body nav ul li #search {
+            background-color: dodgerblue;
+            color: #fff;
+            display: block;
+        }
+        #mp3Btn{
+            margin: 5px auto;
+            width: 700px;
+            margin-left: 72px;
+            height: 77px;
+        }
+    </style>
+</head>
+<body>
+<div id="main_body">
+    <nav>
+        <ul>
+            <li><a href="index.html" id="index">首页</a></li>
+            <li><a href="rankList.html">排行榜</a></li>
+            <li><a href="#" id="search">搜索</a></li>
+            <li><a href="me.html">个人中心</a></li>
+        </ul>
+    </nav>
+    <div id="right">
+        <div class="song" id="detail">
+            <div class="shopTit">
+                <span class="icon"></span>
+                <h3></h3>
+
+            </div>
+            <div   ass="list" id="song">
+                <div id="desc" style="text-align: center; font-size: 18px;font-family: 宋体">
+
+                </div>
+                <div id="music">
+
+                </div>
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+
+        <footer>
+            <p><a href="#">电商简介</a><i>|</i><a href="#">电商公告</a><i>|</i> <a href="#">招纳贤士</a><i>|</i><a
+                    href="#">联系我们</a><i>|</i>客服热线：400-123-1234</p>
+            <p class="content">Copyright &copy; 2006 - 2017 电商版权所有&nbsp;&nbsp;&nbsp;苏ICP备00000912号&nbsp;&nbsp;&nbsp;苏ICP证A1034-8900号&nbsp;&nbsp;&nbsp;某市公安局XX分局备案编号：1234567890</p>
+        </footer>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script>
+    $(function () {
+        var params = GetRequest()
+        var name = params.name
+        var mp3 = `http://music.163.com/song/media/outer/url?id=${params.id}.mp3`
+        $('#main_body #right .song .shopTit h3').html(name)
+
+        $.ajax({
+            url: `https://bird.ioliu.cn/v1?url=http://music.163.com/api/song/lyric?os=pc&id=${params.id}&lv=-1&kv=-1&tv=-1`,
+            success: function (res) {
+                var $temp = $('<audio  id="mp3Btn" src=' + mp3 + ' autoplay controls></audio>');
+                $('#music').html($temp);
+
+                var lyric = res.lrc.lyric
+                //console.log(lyric)
+                //console.log(typeof(lyric))  //string
+                var array = lyric.split("[");
+                var res = ''
+                for (var i = 0; i < array.length; i++) {
+                    if (i == 0) {
+                        res += ""
+                    }
+                    else if (array[i].indexOf("：") == -1) {
+                        res += "[" + array[i] + "<br/>"
+                    } else {
+                        if (array[i].split("：")[1] != "") {
+                            res += "[" + array[i] + "<br/>"
+                        }
+                    }
+                }
+                $('#desc').html(res)
+
+
+            }
+        })
+    })
+
+    function GetRequest() {
+        var url = decodeURI(location.search); //获取url中"?"符后的字串
+        //console.log(url)
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../css/music.css">
+    <style>
+        #main_body nav ul li #search {
+            background-color: dodgerblue;
+            color: #fff;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="main_body">
+    <nav>
+        <ul>
+            <li><a href="index.html" id="index">首页</a></li>
+            <li><a href="rankList.html">排行榜</a></li>
+            <li><a href="#" id="search">搜索</a></li>
+            <li><a href="me.html">个人中心</a></li>
+        </ul>
+    </nav>
+
+    <div id="right">
+        <div class="song">
+            <div class="mod_search_input" style="text-align: center">
+                <input type="text" id="keyWords" placeholder="请输入你要搜索的歌曲"
+                       style="font-size: 16px;padding: 5px 200px;margin-top: 8px;text-align: center"/>
+                <button id="btn" onclick="search()" style="font-size: 16px;padding-top: 3px;padding-bottom: 5px;
+                       padding-left: 10px;padding-right:10px ;text-align: center">
+                    搜索
+                </button>
+            </div>
+
+
+            <div class="list" id="song">
+                <div id="listSong">
+
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div> <!--清除浮动-->
+
+        <footer>
+            <p><a href="#">电商简介</a><i>|</i><a href="#">电商公告</a><i>|</i> <a href="#">招纳贤士</a><i>|</i><a
+                    href="#">联系我们</a><i>|</i>客服热线：400-123-1234
+            </p>
+            <p class="content">Copyright &copy; 2006 - 2017 电商版权所有&nbsp;&nbsp;&nbsp;苏ICP备00000912号&nbsp;&nbsp;&nbsp;苏ICP证A1034-8900号&nbsp;&nbsp;&nbsp;某市公安局XX分局备案编号：1234567890</p>
+        </footer>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script>
+    $(function () {
+
+    })
+    function search() {
+        var keyWords = $('#keyWords').val()
+        //console.log(encodeURI(keyWords))
+
+        $.ajax({
+            url: `https://bird.ioliu.cn/v1?url=music.163.com/api/search/get/web?csrf_token=hlpretag=
+            &hlposttag=&s=${encodeURI(keyWords)}&type=1&offset=0&total=true&limit=10`,
+            success: function (res) {
+                var song = ''
+                //console.log(res)
+                $.each(res.result.songs, function (index, item) {
+                    var id = item.id
+                    var name = item.name
+                    var mp3 = `http://music.163.com/song/media/outer/url?id=${id}.mp3`
+                    $.ajax({
+                        type: 'get',
+                        url: 'https://bird.ioliu.cn/v1?url=music.163.com/api/song/detail/?id=' + id + '&ids=%5B' + id + '%5D',
+                        success: function (res) {
+                            var albumName = res.songs[0].album.name
+                            var img = res.songs[0].album.blurPicUrl
+                            console.log(albumName, img, mp3)
+                            song += '<div class="item">' +
+                                    '<div>' +
+                                    '<a href="search_detail.html?id=' + id + '&name=' + name + '"><h5>' + name + '</h5>' +
+                                    '<p class="detail">' + albumName + '</p>' +
+                                    '<img src="' + img + '" width="127px" height="106px"></a>' +
+                                    '</div>' +
+                                    '</div>'
+                            $('#listSong').html(song)
+
+
+                        }
+                    })
+
+                })
+
+            }
+        })
+
+    }
+</script>
+</html>

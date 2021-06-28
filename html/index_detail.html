@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../css/music.css">
+    <style>
+        #listSong .item .play {
+            margin-left: 15px;
+            height: 21px;
+            float: right;
+            margin-top: -25px;
+            margin-right: 14px;
+        }
+
+        #main_body nav ul li #index {
+            background-color: dodgerblue;
+            color: #fff;
+            display: block;
+        }
+    </style>
+    <!--导入QQ音乐的自动播放器-->
+    <script src="//y.gtimg.cn/music/h5/player/player.js"></script>
+</head>
+<body>
+<div id="main_body">
+    <nav>
+        <ul>
+            <li><a href="#" id="index">首页</a></li>
+            <li><a href="rankList.html">排行榜</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="me.html">个人中心</a></li>
+        </ul>
+    </nav>
+    <div id="right">
+        <div class="song" id="detail">
+            <div class="shopTit">
+                <span class="icon"></span>
+                <h3>歌手详情</h3>
+            </div>
+            <div class="list" id="song">
+                <div id="desc">
+
+                </div>
+
+                <div id="listSong">
+
+                </div>
+
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+
+        <footer>
+            <p><a href="#">电商简介</a><i>|</i><a href="#">电商公告</a><i>|</i> <a href="#">招纳贤士</a><i>|</i><a
+                    href="#">联系我们</a><i>|</i>客服热线：400-123-1234</p>
+            <p class="content">Copyright &copy; 2006 - 2017 电商版权所有&nbsp;&nbsp;&nbsp;苏ICP备00000912号&nbsp;&nbsp;&nbsp;苏ICP证A1034-8900号&nbsp;&nbsp;&nbsp;某市公安局XX分局备案编号：1234567890</p>
+        </footer>
+    </div>
+</div>
+</body>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script>
+    var player = new QMplayer();
+    $(function () {
+        var params = GetRequest()
+        $.ajax({
+            url: 'https://bird.ioliu.cn/v1?url=https://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?' +
+            'order=listen&begin=0&num=12&g_tk=5381&uin=0&format=jsonp' +
+            '&inCharset=utf-8&outCharset=utf-8&notice=0&platform=h5page&needNewCode=1&' +
+            'from=h5&_=1508382535738&singerid=' + params.id,
+            success: function (res) {
+                console.log(res)
+                $('#desc').html(res.data.SingerDesc)
+                var song = ''
+                $.each(res.data.list, function (index, item) {
+                    var img = `http://y.gtimg.cn/music/photo_new/T002R150x150M000${item.musicData.albummid}.jpg`
+                    //console.log(img)
+                    var id = item.musicData.songmid
+                    song += '<div class="item">' +
+                            '<div>' +
+                            '<h5>' + item.musicData.songname + '</h5>' +
+                            '<p class="detail">' + item.musicData.albumname + '</p>' +
+                            '<img src="' + img + '" width="127px" height="106px">' +
+                            '<button type="button" class="play"  onclick="play(this,\'' + id + '\')">播放</button>' +
+                            '</div>' +
+                            '</div>'
+                })
+                $('#listSong').html(song)
+            }
+        })
+
+    })
+
+    /**
+     * 取请求的参数
+     * @returns {Object}
+     * @constructor
+     */
+    function GetRequest() {
+        var url = location.search; //获取url中"?"符后的字串
+        //console.log(url)
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
+    }
+
+
+    function play(e, id) {
+        if (e.innerHTML === '播放') {
+            $('#listSong .item .play').html("播放")
+            player.play(id)
+            e.innerHTML = '暂停'
+        } else {
+            player.pause()
+            e.innerHTML = '播放'
+        }
+
+    }
+</script>
+</html>

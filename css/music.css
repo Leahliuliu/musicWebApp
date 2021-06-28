@@ -1,0 +1,245 @@
+*,h3{
+    margin:0;
+    padding:0;
+}
+
+a{
+    text-decoration: none;
+    color:#000;
+}
+
+#main_body{
+    width:1000px;
+    margin: 0 auto;
+}
+nav{
+    margin:0 auto;
+    height:50px;
+    background-color: #f3f3f3;
+}
+
+nav ul{
+    list-style-type: none;
+    padding-left: 10px;
+    padding-right: 50px;
+}
+nav ul li{
+    float:left;
+    width:206px;
+    line-height: 50px;
+    text-align: center;
+}
+nav ul li a{
+    color:#000;
+    text-decoration: none;
+}
+nav ul li a:hover{
+    background-color: dodgerblue;
+    color:#fff;
+    display: block;
+}
+
+#left{
+    width:160px;
+    height:500px;
+    background-color: #1d7ad9;
+    color:#fff;
+    float: left;
+    border-right: 1px solid #ffffff
+}
+
+#left dl{
+    height:50px;
+    padding:14px 10px;
+    font-size:14px;
+    line-height: 25px;
+    border-bottom: solid 1px #3487f2;
+    border-top:solid 1px #5aa1fe;
+}
+
+#left dl a{
+    color:#fff;
+    margin:5px;
+    text-decoration: none;
+}
+
+#right{
+    width:839px;
+    float:left;
+}
+#main{
+    overflow: hidden;
+    /*clear: both;*/
+}
+
+
+
+#right .item{
+    margin:10px;
+    width:180px;
+    height:200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float:left;
+}
+
+#right .item h3{
+    text-align: center;
+    font-size:16px;
+}
+
+#right .item .detail{
+    font-size: 12px;
+    color: #666;
+}
+
+#right .item .price strong{
+    color: #ff4517;
+    font-size:14px;
+}
+
+#right .item .price s{
+    font-size:12px;
+}
+
+#right .product{
+    margin:10px 0;
+}
+
+#right .product .shopTit{
+    margin-left: 10px;
+    height:44px;
+    line-height: 44px;
+    background-color: #cedfee;
+
+}
+
+#right .product .shopTit h3{
+    float:left;
+    color: #fff;
+    margin-left: 3px;
+}
+
+#right .product .shopTit .more{
+    float:right;
+    text-decoration: none;
+    color: #fff;
+    padding-right: 5px;;
+}
+
+
+
+
+#right .song{
+    margin:10px 0;
+}
+
+#right .song .shopTit{
+    margin-left: 10px;
+    height:44px;
+    line-height: 44px;
+    background-color: #cedfee;
+
+}
+
+#right .song .list h5 {
+    height:25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: #c7c4c5;
+    overflow: hidden; /**超出部分不显示 */
+}
+
+#right .song .list p {
+    height:16px;
+    margin-bottom: 3px;
+    overflow: hidden; /**超出部分不显示 */
+}
+
+#right .song .shopTit h3{
+    float:left;
+    color: #fff;
+    margin-left: 3px;
+}
+
+#right .song .shopTit .more{
+    float:right;
+    text-decoration: none;
+    color: #fff;
+    padding-right: 5px;;
+}
+
+
+/*显示歌曲*/
+#right .song .item{
+    margin:10px;
+    width:186px;
+    height:150px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float:left;
+}
+
+#right .song #desc{
+    padding:10px;
+    line-height:20px;
+    font-size:12px
+}
+
+#right .song .item h3{
+    text-align: center;
+    font-size:16px;
+}
+
+#right .song .item .detail{
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+#right .product .list{
+    clear: both
+}
+
+footer{
+    height:100px;
+    background-color: #dcdcdc;
+    text-align: center;
+    line-height: 40px;
+
+}
+
+footer p a{
+    text-decoration: none;
+    color:#000;
+}
+
+footer p a:hover{
+    color:#f60;
+}
+
+footer p i{
+    font-style: normal;
+    margin:0 4px;
+}
+
+footer .content{
+    font-size:12px;
+}
+
+
+#right .item .mark{
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    width:50px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #ff4517;
+    color:#fff;
+
+    position: absolute;
+    top:0;
+    left:0;
+}

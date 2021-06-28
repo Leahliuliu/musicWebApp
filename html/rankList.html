@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../css/music.css">
+    <style>
+        #main_body nav ul li #hot {
+            background-color: dodgerblue;
+            color: #fff;
+            display: block;
+        }
+
+        #main_body #right .product #list .item p {
+            margin-top: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #main_body #right .product #list .item p a:hover {
+            color: deepskyblue;
+        }
+
+
+    </style>
+    <!--导入QQ音乐的自动播放器-->
+    <script src="//y.gtimg.cn/music/h5/player/player.js"></script>
+</head>
+<body>
+<div id="main_body">
+    <nav>
+        <ul>
+            <li><a href="index.html" id="index">首页</a></li>
+            <li><a href="#" id="hot">排行榜</a></li>
+            <li><a href="search.html">搜索</a></li>
+            <li><a href="me.html">个人中心</a></li>
+        </ul>
+    </nav>
+    <div id="right">
+        <div class="product">
+            <div class="shopTit">
+                <span class="icon"></span>
+                <h3>巅峰榜</h3>
+            </div>
+            <div class="list" id="list">
+
+            </div>
+        </div>
+
+        <div style="clear: both"></div>
+
+        <footer>
+            <p><a href="#">电商简介</a><i>|</i><a href="#">电商公告</a><i>|</i> <a href="#">招纳贤士</a><i>|</i><a
+                    href="#">联系我们</a><i>|</i>客服热线：400-123-1234</p>
+            <p class="content">Copyright &copy; 2006 - 2017 电商版权所有&nbsp;&nbsp;&nbsp;苏ICP备00000912号&nbsp;&nbsp;&nbsp;苏ICP证A1034-8900号&nbsp;&nbsp;&nbsp;某市公安局XX分局备案编号：1234567890</p>
+        </footer>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type: 'get',
+            url: '../data/1.json',
+            dataType: 'json',
+            //crossDomain:true,
+            success: function (res) {
+                var titles = ''
+                $.each(res.data.topList, function (index, item) {  //这是整个路径
+                    var id = item.id
+                    var img = item.picUrl
+                    var title = item.topTitle
+                    //console.log(img);
+
+                    titles += '<div class="item">' +
+                                //图片的超链接，将id传到下一个页面
+                            '<a href="rankList_detail.html?id=' + id + '&title=' + title + '"><img src="' + img + '" width="180px" height="150px"></a>' +
+                                //字的超链接
+                            '<p><a href="rankList_detail.html?id=' + id + '&title=' + title + '">' + title + '</a></p>' + //即打击显示的名字
+                            '</div>'
+
+                })
+                $('#list').html(titles)
+
+            },
+            error: function (e) {
+                console.log(e);
+            }
+
+        })
+    })
+</script>
+
+</html>
